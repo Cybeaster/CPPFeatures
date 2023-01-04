@@ -1,30 +1,25 @@
 
 #include <type_traits>
 
-namespace CPP11
+namespace cpp11
 {
-    template <typename ... Args>
+    template <typename... Args>
     struct MemberFunctorImpl;
 
-
-    template <typename T, typename R, typename ... Args>
-    struct MemberFunctorImpl<R (T::*)(Args ...)>
+    template <typename T, typename ReturnType, typename... Args>
+    struct MemberFunctorImpl<ReturnType (T::*)(Args...)>
     {
-        using FT = R(T::*FT)(Args);
+        using FT = ReturnType (T::*FT)(Args);
         using HostType = T;
 
-        MemberFunctorImpl(FT fn = NULL,T* obj = nullptr)
-        : Fn(fn), Obj(obj){}
+        MemberFunctorImpl(FT fn = NULL, T *obj = nullptr)
+            : Fn(fn), Obj(obj) {}
 
         FT Fn;
-        T* Obj;
-        
+        T *Obj;
     };
-
-
 
     void Test()
     {
-        
     }
 }

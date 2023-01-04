@@ -1,8 +1,7 @@
 
 
-namespace CPP11
+namespace cpp11
 {
-
 #pragma region Tuple
 
     // Begin
@@ -60,4 +59,5 @@ namespace CPP11
     void Test()
     {
     }
+
 } // namespace CPP11

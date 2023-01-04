@@ -24,7 +24,7 @@ static void funstatic()
 void fun(int*& outVarGlobal, int*& outVarLocal)
 {
     funstatic();
-
+    
     var = 5;
     static int var3;
     int var2 = 1;

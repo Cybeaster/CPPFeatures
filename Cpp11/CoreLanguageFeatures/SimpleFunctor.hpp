@@ -1,35 +1,29 @@
 
 
-namespace CPP11
+namespace cpp11
 {
     template <typename... Ts>
-    struct SimpleFunctorImpl;
+    struct FunctorImpl;
 
-    template <typename R, typename... Args>
-    struct SimpleFunctorImpl<R(Args...)>
+    template <typename ReturnType, typename... Args>
+    struct FunctorImpl<ReturnType(Args...)>
     {
-        typedef R(FT)(Args...);
-        SimpleFunctorImpl(FT fn) : m_fn(fn) {}
+        using FuncType = ReturnType(Args...);
+        FunctorImpl(FuncType Func) : Function(Func) {}
 
-        __forceinline R operator()(Args... args)
+        __forceinline ReturnType operator()(Args... args)
         {
-            return m_fn(args...);
+            return Function(args...);
         }
 
-        FT m_fn;
+        FuncType Function;
     };
 
     template <typename FT>
-    struct SimpleFunctor : public SimpleFunctorImpl<FT>
+    struct Functor : public FunctorImpl<FT>
     {
-        SimpleFunctor() : SimpleFunctorImpl<FT>(NULL) {}
-        SimpleFunctor(FT fn) : SimpleFunctorImpl<FT>(fn) {}
+        Functor() : FunctorImpl<FT>(NULL) {}
+        Functor(FT fn) : FunctorImpl<FT>(fn) {}
     };
 
-    int &&PlusFN(int a, int b) { return a + b; }
-
-    void Test_1()
-    {
-        SimpleFunctor<int && (int, int)> plus(PlusFN);
-    }
 } // namespace CPP11
